@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import time
 import pygame as pg
 
 
@@ -12,6 +13,23 @@ DELTA = {
     pg.K_RIGHT: (+5,0),
 }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+
+def gameover(screen: pg.Surface) -> None:
+    black_surface = pg.Surface((WIDTH, HEIGHT))
+    pg.draw.rect(black_surface, (0, 0, 0),pg.Rect(0, 0, WIDTH, HEIGHT))
+    black_surface.set_alpha(126)
+
+    naki_img = pg.image.load("fig/8.png")
+    fonto = pg.font.Font(None, 80)
+    txt = fonto.render("Game Over", True, (255, 255, 255))
+
+    screen.blit(black_surface, [0, 0])
+    screen.blit(txt,[WIDTH*3/8, HEIGHT/2])
+    screen.blit(naki_img,[WIDTH*8/11, HEIGHT/2])
+    screen.blit(naki_img,[WIDTH*3/11, HEIGHT/2])
+    pg.display.update()
+    time.sleep(5)
 
 def check_bound(rct: pg.Rect):
     yoko, tate = True, True #横、縦方向の変数
@@ -50,7 +68,9 @@ def main():
         screen.blit(bg_img, [0, 0])
 
         if kk_rct.colliderect(bb_rct):
+            gameover(screen)
             print("Game Over")
+
             return
 
         key_lst = pg.key.get_pressed()
