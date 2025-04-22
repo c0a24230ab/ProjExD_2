@@ -41,6 +41,7 @@ def init_bb_imgs() -> tuple[list[pg.Surface],list[int]]:
     for r in range(1, 11):
         bb_img - pg.Surface((20*r, 20*r))
         pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
+    
 
 def check_bound(rct: pg.Rect):
     yoko, tate = True, True #横、縦方向の変数
@@ -68,7 +69,7 @@ def main():
     bb_rct.centery = random.randint(0,HEIGHT)
     bb_img.set_colorkey((0,0,0))
     vx, vy = +5, +5
-    
+
     clock = pg.time.Clock()
     tmr = 0
     while True:
